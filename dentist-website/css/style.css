@@ -1159,3 +1159,98 @@ section{
     }
 
 }
+/* =========================================
+   WHY CHOOSE US
+========================================= */
+
+.why-us{
+
+    background: var(--surface);
+
+}
+
+.why-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:30px;
+
+    margin-top:60px;
+
+}
+
+.why-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:35px;
+
+    transition:var(--transition);
+
+    box-shadow:var(--shadow);
+
+}
+
+.why-card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.why-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    background:rgba(37,99,235,.1);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:var(--primary);
+
+    font-size:30px;
+
+    margin-bottom:25px;
+
+    transition:var(--transition);
+
+}
+
+.why-card:hover .why-icon{
+
+    background:var(--primary);
+
+    color:white;
+
+    transform:rotate(8deg) scale(1.08);
+
+}
+
+.why-card h3{
+
+    margin-bottom:15px;
+
+    color:var(--text);
+
+}
+
+.why-card p{
+
+    color:var(--text-light);
+
+    line-height:1.8;
+
+}
