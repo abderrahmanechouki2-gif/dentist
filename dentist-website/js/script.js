@@ -6,8 +6,13 @@ const hamburger = document.getElementById("hamburger");
 const navLinks = document.querySelector(".nav-links");
 
 hamburger.addEventListener("click", () => {
+
     navLinks.classList.toggle("active");
+
+    hamburger.classList.toggle("active");
+
 });
+
 
 
 /* ==========================================
@@ -52,6 +57,8 @@ document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", () => {
 
         navLinks.classList.remove("active");
+
+        hamburger.classList.remove("active");
 
     });
 
@@ -138,60 +145,3 @@ revealElements.forEach(el => {
 window.addEventListener("scroll", revealOnScroll);
 
 revealOnScroll();
-/* ==========================================
-   COUNTER ANIMATION
-========================================== */
-
-const counters = document.querySelectorAll(".counter");
-
-const startCounters = () => {
-
-    counters.forEach(counter => {
-
-        const target = +counter.dataset.target;
-
-        let count = 0;
-
-        const increment = target / 100;
-
-        const updateCounter = () => {
-
-            count += increment;
-
-            if(count < target){
-
-                counter.textContent = Math.floor(count);
-
-                requestAnimationFrame(updateCounter);
-
-            }else{
-
-                counter.textContent = target + "+";
-
-            }
-
-        };
-
-        updateCounter();
-
-    });
-
-};
-
-let started = false;
-
-window.addEventListener("scroll",()=>{
-
-    const stats = document.querySelector(".hero-stats");
-
-    const top = stats.getBoundingClientRect().top;
-
-    if(top < window.innerHeight && !started){
-
-        started = true;
-
-        startCounters();
-
-    }
-
-});
