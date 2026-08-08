@@ -162,7 +162,7 @@ const counterObserver = new IntersectionObserver((entries, observer) => {
         const target = parseFloat(counter.dataset.target);
         const suffix = counter.dataset.suffix || "";
 
-        const duration = 2200;
+        const duration = 1800;
         const startTime = performance.now();
 
         function animate(currentTime) {
