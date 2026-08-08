@@ -1310,3 +1310,32 @@ section{
     line-height:1.8;
 
 }
+/* ==========================================
+   DARK MODE - SERVICES
+========================================== */
+
+.dark-mode .services {
+    background: #0f172a;
+}
+
+.dark-mode .service-card {
+    background: #172033;
+    color: #cbd5e1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.dark-mode .service-card h3 {
+    color: #ffffff;
+}
+
+.dark-mode .service-card p {
+    color: #cbd5e1;
+}
+
+.dark-mode .service-card a {
+    color: #56ccf2;
+}
+
+.dark-mode .service-card .icon {
+    background: rgba(47, 128, 237, 0.15);
+}
