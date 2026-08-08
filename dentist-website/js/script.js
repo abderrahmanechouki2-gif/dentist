@@ -146,7 +146,7 @@ window.addEventListener("scroll", revealOnScroll);
 
 revealOnScroll();
 /* ==========================================
-   ANIMATED NUMBER COUNTERS
+   SMOOTH NUMBER COUNTERS
 ========================================== */
 
 const counters = document.querySelectorAll(".counter");
@@ -158,40 +158,46 @@ const counterObserver = new IntersectionObserver((entries, observer) => {
         if (!entry.isIntersecting) return;
 
         const counter = entry.target;
+
         const target = parseFloat(counter.dataset.target);
         const suffix = counter.dataset.suffix || "";
 
-        let start = 0;
-        const duration = 1800;
+        const duration = 2200;
         const startTime = performance.now();
 
-        function updateCounter(currentTime) {
+        function animate(currentTime) {
 
             const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
 
-            // Smooth ease-out animation
-            const easedProgress = 1 - Math.pow(1 - progress, 3);
+            // Progress from 0 → 1
+            let progress = Math.min(elapsed / duration, 1);
 
-            const currentValue = start + (target - start) * easedProgress;
+            // Smooth ease-out
+            progress = 1 - Math.pow(1 - progress, 4);
 
-            // Keep 4.9 as 4.9 instead of 5
-            counter.textContent =
-                target % 1 !== 0
-                    ? currentValue.toFixed(1) + suffix
-                    : Math.floor(currentValue) + suffix;
+            const value = target * progress;
 
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
+            if (target % 1 !== 0) {
+                counter.textContent = value.toFixed(1) + suffix;
+            } else {
+                counter.textContent =
+                    Math.round(value).toLocaleString() + suffix;
             }
 
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                // Make absolutely sure the final number is exact
+                counter.textContent =
+                    target % 1 !== 0
+                        ? target.toFixed(1) + suffix
+                        : target.toLocaleString() + suffix;
+            }
         }
 
-        requestAnimationFrame(updateCounter);
+        requestAnimationFrame(animate);
 
-        // Only animate once
         observer.unobserve(counter);
-
     });
 
 }, {
