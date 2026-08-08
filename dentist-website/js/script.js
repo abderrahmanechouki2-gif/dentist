@@ -145,3 +145,59 @@ revealElements.forEach(el => {
 window.addEventListener("scroll", revealOnScroll);
 
 revealOnScroll();
+/* ==========================================
+   ANIMATED NUMBER COUNTERS
+========================================== */
+
+const counters = document.querySelectorAll(".counter");
+
+const counterObserver = new IntersectionObserver((entries, observer) => {
+
+    entries.forEach(entry => {
+
+        if (!entry.isIntersecting) return;
+
+        const counter = entry.target;
+        const target = parseFloat(counter.dataset.target);
+        const suffix = counter.dataset.suffix || "";
+
+        let start = 0;
+        const duration = 1800;
+        const startTime = performance.now();
+
+        function updateCounter(currentTime) {
+
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Smooth ease-out animation
+            const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+            const currentValue = start + (target - start) * easedProgress;
+
+            // Keep 4.9 as 4.9 instead of 5
+            counter.textContent =
+                target % 1 !== 0
+                    ? currentValue.toFixed(1) + suffix
+                    : Math.floor(currentValue) + suffix;
+
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            }
+
+        }
+
+        requestAnimationFrame(updateCounter);
+
+        // Only animate once
+        observer.unobserve(counter);
+
+    });
+
+}, {
+    threshold: 0.5
+});
+
+counters.forEach(counter => {
+    counterObserver.observe(counter);
+});
